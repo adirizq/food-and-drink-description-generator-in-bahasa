@@ -9,9 +9,9 @@ Want to give it a try? Try it now on [![Streamlit Cloud](https://static.streamli
 ### Example
 | merchant_name | merchant_area | category | display | product | price | discount_price | isDiscount | description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Non Coffee | Lychee Squash | 20000 | 0 |   |
-| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Non Coffee | Chocoreo | 25000 | 0 | Perpaduan Chocolate Dan Oreo |
-| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Snack | Pisang Lumer Coklat | 19000 | 0 | Sajian Pisang Lumer Dengan Rasa Coklat Yang Begitu Menggoda |
+| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Non Coffee | Lychee Squash | 20000 |   | 0 |   |
+| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Non Coffee | Chocoreo | 25000 |   | 0 | Perpaduan Chocolate Dan Oreo |
+| "330 Kopi, Ciledug" | jakarta | Kopi/Minuman/Roti | Snack | Pisang Lumer Coklat | 19000 |   | 0 | Sajian Pisang Lumer Dengan Rasa Coklat Yang Begitu Menggoda |
 
 ## Result
 | Model  | Train Loss | Validation Loss |
