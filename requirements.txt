@@ -7,3 +7,4 @@ tqdm==4.64.1
 transformers==4.24.0
 tensorflow==2.9.2
 streamlit==1.14.1
+torch==1.12.1
