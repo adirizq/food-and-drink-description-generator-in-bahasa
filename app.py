@@ -1,8 +1,12 @@
 import re
 import pickle
+import zipfile
+import os
 import streamlit as st
 import numpy as np
 import pandas as pd
+import urllib.request
+import zipfile
 
 from keras.models import load_model
 from keras.utils import pad_sequences
@@ -11,17 +15,31 @@ from transformers import GPT2TokenizerFast, GPT2LMHeadModel, set_seed
 st.set_page_config(page_title="Food and Drink Description Generator in Bahasa", page_icon="🍽️", layout="centered")
 
 
-@st.cache(persist=True, allow_output_mutation=True, show_spinner=False)
+@st.cache(allow_output_mutation=True, show_spinner=False, ttl=3600, max_entries=10)
 def inference_init():
-    lstm_model = load_model('models/lstm')
-    gpt2_tokenizer = GPT2TokenizerFast.from_pretrained('cahya/gpt2-small-indonesian-522M')
-    gpt2_model = GPT2LMHeadModel.from_pretrained('models/finetuned-gpt2', pad_token_id=gpt2_tokenizer.eos_token_id)
+    lstm_path = 'models/lstm'
+    gpt2_path = 'models/finetuned-gpt2'
 
-    with open('datasets/word_to_idx.pkl', 'rb') as f:
-        word_to_idx = pickle.load(f)
+    if not os.path.exists(lstm_path) and not os.path.exists(gpt2_path):
+        with st.spinner("Downloading models... this may take awhile! \n Don't stop it!"):
+            url = 'https://github.com/adirizq/data/releases/download/food_drink_desc_generator/models.zip'
+            filename = url.split('/')[-1]
 
-    with open('datasets/idx_to_word.pkl', 'rb') as f:
-        idx_to_word = pickle.load(f)
+            urllib.request.urlretrieve(url, filename)
+
+            with zipfile.ZipFile(filename, 'r') as zip_ref:
+                zip_ref.extractall('models/')
+
+    with st.spinner("Loading models... this may take awhile! \n Don't stop it!"):
+        lstm_model = load_model(lstm_path)
+        gpt2_tokenizer = GPT2TokenizerFast.from_pretrained('cahya/gpt2-small-indonesian-522M')
+        gpt2_model = GPT2LMHeadModel.from_pretrained(gpt2_path, pad_token_id=gpt2_tokenizer.eos_token_id)
+
+        with open('datasets/word_to_idx.pkl', 'rb') as f:
+            word_to_idx = pickle.load(f)
+
+        with open('datasets/idx_to_word.pkl', 'rb') as f:
+            idx_to_word = pickle.load(f)
 
     return lstm_model, gpt2_tokenizer, gpt2_model, word_to_idx, idx_to_word
 
