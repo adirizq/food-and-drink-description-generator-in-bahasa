@@ -142,7 +142,7 @@ st.markdown(' ')
 st.header('📝 Food and Drink Description Generator')
 
 with st.form("form"):
-    input_text = st.text_input('Starting text', placeholder='Enter your description starting text here')
+    input_text = st.text_input('Starting text (minimum 2 words)', placeholder='Enter your description starting text here')
     len_words = st.number_input('Number of words', min_value=1, max_value=50, value=20)
 
     submitted = st.form_submit_button("Submit")
