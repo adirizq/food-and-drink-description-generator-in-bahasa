@@ -75,7 +75,10 @@ def prepare_corpus(data, word_to_idx):
             i_gram_sequence_ids = []
 
             for j, token in enumerate(i_gram_sequence):
-                i_gram_sequence_ids.append(word_to_idx[token])
+                try:
+                    i_gram_sequence_ids.append(word_to_idx[token])
+                except:
+                    i_gram_sequence_ids.append(0)
 
             sequences.append(i_gram_sequence_ids)
     return sequences
